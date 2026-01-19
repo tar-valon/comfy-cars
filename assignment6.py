@@ -29,9 +29,9 @@ def u(z):
     arg = np.pi * (z - z_on) / l_bump
     return h_bump * np.sin(arg)
 
-v = 3.0   # car speed [m/s]
+v = 3.0
 
-# Matrix A
+# matrix A
 A = np.array([
     [0, (-k1 - k2)/m1, 0, k2/m1],
     [1, (-d1 - d2)/m1, 0, d2/m1],

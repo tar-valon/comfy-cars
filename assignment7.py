@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 ###### Assignment 7
+# NOTE: change value of s for second graph
 
 # Equilibrium positions
 y1_star = 0.3
