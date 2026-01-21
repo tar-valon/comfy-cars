@@ -20,7 +20,7 @@ k2 = 100
 def u(z):
     # Bump sinusoid values
     z_on  = 5.0
-    z_off = 10.0
+    z_off = 9.5
     h_bump = 0.10
     l_bump = z_off - z_on
 

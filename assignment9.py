@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-###### Assignment 8
+###### Assignment 9
 
 # Equilibrium positions
 y1_star = 0.3
@@ -15,21 +15,19 @@ m2 = 100
 d2 = 200
 k2 = 100
 
-
+# Single bump
+z_on  = 5.0
+z_off = 9.5
+h_bump = 0.10
+l_bump = z_off - z_on
 
 def u(z):
-    # Bump sinusoid values
-    z_on  = 5.0
-    z_off = 9.5
-    h_bump = 0.10
-    l_bump = z_off - z_on
-
     if z < z_on or z > z_off:
         return 0.0
     arg = np.pi * (z - z_on) / l_bump
     return h_bump * np.sin(arg)
 
-v = 10.0
+v = 3.0
 
 # Matrix A
 A = np.array([
@@ -39,8 +37,14 @@ A = np.array([
     [0, d2/m2, 1, -d2/m2]
 ], dtype=float)
 
-# matrix B
+# Matrix B
 B = np.array([k1/m1, d1/m1, 0, 0])
+
+# Matrix C
+C = np.array([
+                  [0, 1, 0, 0],
+                  [0, 0, 0, 1]
+              ], dtype=float)
 
 # Euler settings
 h = 0.01
@@ -48,19 +52,19 @@ tend = 20.0
 x = np.zeros(4)
 
 t_list = []
-u_list = []
-y1_list = []
-y2_list = []
-rel_list = []
+y1_dot_list = []
+y2_dot_list = []
 
 t = 0.0
 while t < tend:
     ut = u(v * t)
+
+    y1_dot = C[0] @ (A @ x + B * ut)
+    y2_dot = C[1] @ (A @ x + B * ut)
+
     t_list.append(t)
-    u_list.append(ut)
-    y1_list.append(y1_star + x[0])
-    y2_list.append(y2_star + x[2])
-    rel_list.append(x[0] - ut)
+    y1_dot_list.append(y1_dot)
+    y2_dot_list.append(y2_dot)
 
     # Euler step
     x_dot = A @ x + B * ut
@@ -68,14 +72,10 @@ while t < tend:
     t = t + h
 
 plt.figure()
-plt.plot(t_list, u_list, label='u(t)')
-plt.plot(t_list, y1_list, label='y1*(t)')
-plt.plot(t_list, y2_list, label='y2*(t)')
-plt.plot(t_list, rel_list, label='y1(t) - u(t)')
+plt.plot(t_list, y1_dot_list, label='body speed')
+plt.plot(t_list, y2_dot_list, label='chair speed')
 plt.xlabel('time [s]')
-plt.ylabel('position [m]')
+plt.ylabel('speed [m/s]')
+plt.title('Speed of body and chair')
 plt.legend()
 plt.show()
-
-max_rel = max([abs(val) for val in rel_list])
-print('Maximum |y1(t) - u(t)| =', max_rel)

@@ -23,7 +23,7 @@ s = 0
 def u(z):
     # Bump sinusoid values
     z_on1  = 5.0
-    z_off1 = 10.0
+    z_off1 = 9.5
     h_bump = 0.10
     l_bump = z_off1 - z_on1
 
