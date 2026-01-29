@@ -51,7 +51,7 @@ def simulate(d1):
         t += h
 
         T.append(t)
-        Y1.append(y1_star + x[0])
+        Y1.append(x[1])
 
     return T, Y1
 
@@ -63,9 +63,9 @@ d1_values = np.arange(250, 2001, 250)
 
 for d1 in d1_values:
     T, Y1 = simulate(d1)
-    plt.plot(T, Y1, label=f"d1 = {d1}")
+    plt.plot(T, Y1, label=f"$d_1 =$ {d1}")
 
-plt.xlabel("time [s]")
-plt.ylabel(" position [m]")
-plt.legend()
+plt.xlabel("$t$ [s]")
+plt.ylabel("$y_1(t)$ [m]")
+plt.legend(loc='best', fontsize='small')
 plt.show()

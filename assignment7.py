@@ -28,7 +28,7 @@ def u(z):
     l_bump = z_off1 - z_on1
 
     z_on2  = z_off1 + s
-    z_off2 = z_on2 + l_bump    # first bump
+    z_off2 = z_on2 + l_bump
 
     if z_on1 <= z <= z_off1:
         arg = np.pi * (z - z_on1) / l_bump
@@ -66,26 +66,27 @@ rel_list = []
 t = 0.0
 while t < tend:
     ut = u(v * t)
+    # Euler step
+    x = x + h * (A @ x + B * ut)
+    t += h
     t_list.append(t)
     u_list.append(ut)
-    y1_list.append(y1_star + x[0])
-    y2_list.append(y2_star + x[2])
-    rel_list.append(x[0] - ut)
-
-    # Euler step
-    x_dot = A @ x + B * ut
-    x = x + h * x_dot
-    t = t + h
+    y1_list.append(y1_star + x[1])
+    y2_list.append(y2_star + x[3])
+    rel_list.append(x[1] - ut)
 
 plt.figure()
-plt.plot(t_list, u_list, label='u(t)')
-plt.plot(t_list, y1_list, label='y1*(t)')
-plt.plot(t_list, y2_list, label='y2*(t)')
-plt.plot(t_list, rel_list, label='y1(t) - u(t)')
-plt.xlabel('time [s]')
+plt.plot(t_list, u_list, label='$u(t)$')
+plt.plot(t_list, y1_list, label='$y_{*1} + y_1(t)$')
+plt.plot(t_list, y2_list, label='$y_{*2} + y_2(t)$')
+plt.plot(t_list, rel_list, label='$y_1(t) - u(t)$')
+plt.xlabel('t [s]')
 plt.ylabel('position [m]')
-plt.legend()
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+
 plt.show()
+
 
 max_rel = max([abs(val) for val in rel_list])
 print('Maximum |y1(t) - u(t)| =', max_rel)

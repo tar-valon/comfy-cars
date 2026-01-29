@@ -59,6 +59,11 @@ t = 0.0
 while t < tend:
     ut = u(v * t)
 
+    # Euler step
+    x_dot = A @ x + B * ut
+    x = x + h * x_dot
+    t = t + h
+
     y1_dot = C[0] @ (A @ x + B * ut)
     y2_dot = C[1] @ (A @ x + B * ut)
 
@@ -66,16 +71,11 @@ while t < tend:
     y1_dot_list.append(y1_dot)
     y2_dot_list.append(y2_dot)
 
-    # Euler step
-    x_dot = A @ x + B * ut
-    x = x + h * x_dot
-    t = t + h
 
 plt.figure()
-plt.plot(t_list, y1_dot_list, label='body speed')
-plt.plot(t_list, y2_dot_list, label='chair speed')
-plt.xlabel('time [s]')
-plt.ylabel('speed [m/s]')
-plt.title('Speed of body and chair')
+plt.plot(t_list, y1_dot_list, label='$y_1^{\prime}(t)$')
+plt.plot(t_list, y2_dot_list, label='$y_2^{\prime}(t)$')
+plt.xlabel('t [s]')
+plt.ylabel('speed $y^{\prime}(t)$ $[ms^{-1}]$')
 plt.legend()
 plt.show()

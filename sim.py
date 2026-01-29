@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-###### Assignment 3
+###### Assignment 3 and 4
+# Change parameters for assignment 3 or 4
 
 # Equilibrium positions
 y1_star = 0.3
@@ -43,8 +44,8 @@ def simulate(x):
         t += h
 
         T.append(t)
-        Y1.append(y1_star + x[0])
-        Y2.append(y2_star + x[2])
+        Y1.append(y1_star + x[1])
+        Y2.append(y2_star + x[3])
 
     return T, Y1, Y2
 
@@ -58,19 +59,19 @@ T1, Y1a, Y2a = simulate(x0_1)
 T2, Y1b, Y2b = simulate(x0_2)
 
 plt.figure()
-plt.plot(T1, Y1a, label="Body (case 1)")
-plt.plot(T1, Y2a, label="Seat (case 1)")
+plt.plot(T1, Y1a, label="$y_{*1} + y_1(t)$ Body")
+plt.plot(T1, Y2a, label="$y_{*2} + y_2(t)$ Chair")
 
-plt.xlabel("time [s]")
+plt.xlabel("t [s]")
 plt.ylabel("position [m]")
 plt.legend()
 plt.show()
 
 plt.figure()
-plt.plot(T2, Y1b, label="Body (case 2)")
-plt.plot(T2, Y2b, label="Seat (case 2)")
+plt.plot(T2, Y1a, label="$y_{*1} + y_1(t)$ Body")
+plt.plot(T2, Y2a, label="$y_{*2} + y_2(t)$ Chair")
 
-plt.xlabel("time [s]")
+plt.xlabel("t [s]")
 plt.ylabel("position [m]")
 plt.legend()
 plt.show()
