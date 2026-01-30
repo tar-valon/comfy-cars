@@ -68,8 +68,8 @@ plt.legend()
 plt.show()
 
 plt.figure()
-plt.plot(T2, Y1a, label="$y_{*1} + y_1(t)$ Body")
-plt.plot(T2, Y2a, label="$y_{*2} + y_2(t)$ Chair")
+plt.plot(T2, Y1b, label="$y_{*1} + y_1(t)$ Body")
+plt.plot(T2, Y2b, label="$y_{*2} + y_2(t)$ Chair")
 
 plt.xlabel("t [s]")
 plt.ylabel("position [m]")
